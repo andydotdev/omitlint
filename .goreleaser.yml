@@ -6,8 +6,19 @@ before:
     - go generate ./...
 
 builds:
-  - env:
+  - id: omitlint
+    dir: cmd/omitlint
+    env:
       - CGO_ENABLED=0
+    main: .
+    binary: omitlint
+    tags:
+       - "{{ if .IsSnapshot }}qa{{ end }}"
+    flags:
+      - -trimpath
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    ldflags:
+      - -s -w -X main.Version={{.Version}}
     goos:
       - linux
       - windows
