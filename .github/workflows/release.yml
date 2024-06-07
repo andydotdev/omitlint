@@ -28,3 +28,5 @@ jobs:
     steps:
     - name: Pull new module version
       uses: andrewslotin/go-proxy-pull-action@master
+      with:
+        import_path: andy.dev/omitlint
